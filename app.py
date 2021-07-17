@@ -174,6 +174,16 @@ def update_graph_live(n):
                     id='crossfilter-indicator-scatter',
                     figure={
                         'data': [
+                            go.Scatter(
+                                x=time_series,
+                                y=result["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
+                                    result['depression'] == 0].reset_index(drop=True),
+                                name="Neutrals",
+                                opacity=0.8,
+                                mode='lines',
+                                line=dict(width=0.5, color='rgb(131, 90, 241)'),
+                                stackgroup='one'
+                            ),
 
                             go.Scatter(
                                 x=time_series,
@@ -183,7 +193,7 @@ def update_graph_live(n):
                                 opacity=0.8,
                                 mode='lines',
                                 line=dict(width=0.5, color='rgb(255, 50, 50)'),
-                                stackgroup='one'
+                                stackgroup='two'
                             ),
                             go.Scatter(
                                 x=time_series,
@@ -193,7 +203,7 @@ def update_graph_live(n):
                                 opacity=0.8,
                                 mode='lines',
                                 line=dict(width=0.5, color='rgb(184, 247, 212)'),
-                                stackgroup='two'
+                                stackgroup='three'
                             )
                         ]
                     }
