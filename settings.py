@@ -1,4 +1,4 @@
-TRACK_WORDS = ['depression']
+TRACK_WORDS = ['depression', 'anxiety', 'PTSD', 'depressed']
 TABLE_NAME = "Mental_Health"
 TABLE_ATTRIBUTES = "id_str VARCHAR(255), created_at timestamp, text VARCHAR(255), \
             depression VARCHAR(255), user_created_at VARCHAR(255), user_location VARCHAR(255), \
