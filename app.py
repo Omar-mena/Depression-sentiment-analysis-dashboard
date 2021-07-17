@@ -124,7 +124,7 @@ def update_graph_live(n):
    # query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(
    #     settings.TABLE_NAME)
    # timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
-    query = "SELECT id_str, text, created_at, depression, user_location FROM {} WHERE created_at >= '{}'".format(settings.TABLE_NAME)
+    query = "SELECT id_str, text, created_at, depression, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
 
     # Convert UTC into PDT
@@ -272,7 +272,7 @@ def update_graph_bottom_live(n):
     # Loading data from Heroku PostgreSQL
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    query = "SELECT id_str, text, created_at, depression, user_location FROM {} WHERE created_at >= '{}' ".format(settings.TABLE_NAME)
+    query = "SELECT id_str, text, created_at, depression, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
     conn.close()
 
