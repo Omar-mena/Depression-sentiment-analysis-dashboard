@@ -196,7 +196,7 @@ def update_graph_live(n):
                                 labels=['Positives', 'Negatives'],
                                 values=[pos_num, neg_num],
                                 name="View Metrics",
-                                marker_colors=['rgba(184, 247, 212, 0.6)', 'rgba(255, 50, 50, 0.6)'],
+                                marker_colors=['rgba(255, 50, 50, 0.6)', 'rgba(184, 247, 212, 0.6)'],
                                 textinfo='value',
                                 hole=.65)
                         ],
