@@ -123,7 +123,7 @@ def update_graph_live(n):
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
    # query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(
    #     settings.TABLE_NAME)
-   # timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
+    timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
     query = "SELECT id_str, text, created_at, depression, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
 
@@ -287,7 +287,7 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    STATES = ['Albania','Andorra','Armenia','Austria','Azerbaijan','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France', 'Georgia','Germany','Greece','Hungary','Iceland','Ireland','Italy', 'Kazakhstan','Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta', 'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Turkey',  'Ukraine', 'United Kingdom', 'Vatican City', 'England', 'Scotland', 'Northern Ireland']
+    STATES = ['Albania','Andorra','Armenia','Austria','Azerbaijan','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France', 'Georgia','Germany','Greece','Hungary','Iceland','Ireland','Italy', 'Kazakhstan','Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta', 'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland', 'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland', 'Turkey',  'Ukraine', 'United Kingdom', 'Vatican City', 'United Kingdom of Great Britain and Northern Ireland']
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
