@@ -134,8 +134,8 @@ def update_graph_live(n):
     result = df.groupby([pd.Grouper(key='created_at', freq='10s'), 'depression']).count().unstack(
         fill_value=0).stack().reset_index()
     result = result.rename(
-        columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at": "Time"})
-    time_series = result["Time"][result['depression'] == 'positive' or 'negative'].reset_index(drop=True)
+        columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at": "Time in BTS"})
+    time_series = result["Time in BTS"][result['depression'] == 'positive' or 'negative'].reset_index(drop=True)
 
     min10 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=10)
     min20 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=20)
