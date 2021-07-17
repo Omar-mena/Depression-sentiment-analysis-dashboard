@@ -123,7 +123,7 @@ def update_graph_live(n):
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
    # query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(
    #     settings.TABLE_NAME)
-    timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
+    #timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
     query = "SELECT id_str, text, created_at, depression, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
 
@@ -146,7 +146,20 @@ def update_graph_live(n):
         result['depression'] == 'positive'].sum()
 
     # Loading back-up summary data
+    query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
+    back_up = pd.read_sql(query, con=conn)
+    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])].sum()
+    daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
+    cur = conn.cursor()
 
+    PDT_now = datetime.datetime.now() - datetime.timedelta(hours=7)
+    if PDT_now.strftime("%H%M")=='0000':
+        cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
+    else:
+        cur.execute("UPDATE Back_Up SET daily_tweets_num = {}, impressions = {};".format(daily_tweets_num, daily_impressions))
+    conn.commit()
+    cur.close()
+    conn.close()
 
     # Percentage Number of Tweets changed in Last 10 mins
 
