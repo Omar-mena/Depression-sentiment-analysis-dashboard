@@ -22,7 +22,7 @@ from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from textblob import TextBlob
-
+from joblib import load
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -271,7 +271,7 @@ def update_graph_live(n):
               [Input('interval-component-slow', 'n_intervals')])
 def update_graph_bottom_live(n):
     # Loading data from Heroku PostgreSQL
-    DATABASE_URL = os.environ['DATABASE_URL']
+    DATABASE_URL = os.environ['postgres://trchqrddntivvh:57301029a6bc5d6036a412c192ca8502df01ff699230ad036bc677ea494d83f6@ec2-54-217-195-234.eu-west-1.compute.amazonaws.com:5432/d2m9894t5udp2e']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     query = "SELECT id_str, text, created_at, depression, user_location FROM {} WHERE created_at >= '{}' " \
         .format(settings.TABLE_NAME)
