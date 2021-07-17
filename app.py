@@ -287,12 +287,12 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    STATES = ['ALB', 'AND', 'ARM', 'AUT', 'BLR', 'BEL', 'BIH', 'BGR',
-              'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'GBR',
-              'GEO', 'DEU', 'FRO', 'GRC', 'GIB', 'HUN', 'ISL', 'IRL', 'ITA', 'LVA',
-              'LIE', 'LTU', 'LUX', 'MKD', 'MLT', 'MDA', 'MCO', 'MNE', 'NLD',
-              'NOR', 'POL', 'PRT', 'ROU', 'RUS', 'SMR', 'SRB', 'SVK', 'SVN', 'ESP',
-              'SWE', 'CHE', 'TUR', 'UKR']
+    STATES = ['Albania', 'ALB', 'Andorra', 'AND', 'Armenia', 'ARM', 'Austria', 'AUT', 'Belarus', 'BLR', 'Belgium', 'BEL', 'Bosnia and Herzegovina', 'BIH', 'Bulgaria', 'BGR', 'Croatia',
+              'HRV', 'Cyprus', 'CYP', 'Czech Republic', 'CZE', 'Denmark', 'DNK', 'Estonia', 'EST', 'Finland', 'FIN', 'France', 'FRA', 'United Kingdom of Great Britain and Northern Ireland', 'GBR', 'Georgia',
+              'GEO', 'Germany', 'DEU', 'Faroe Islands', 'FRO', 'Greece', 'GRC', 'Gibraltar', 'GIB', 'Hungary', 'HUN', 'Iceland', 'ISL', 'Ireland', 'IRL', 'Italy', 'ITA', 'Latvia', 'LVA', 'Liechtenstein',
+              'LIE', 'Lithuania', 'LTU', 'Luxembourg', 'LUX', 'North Macedonia', 'MKD', 'Malta', 'MLT', 'Republic of Moldova', 'MDA', 'Monaco', 'MCO', 'Montenegro', 'MNE', 'Netherlands', 'NLD', 'Norway',
+              'NOR', 'Poland', 'POL', 'Portugal', 'PRT', 'Romania', 'ROU', 'Russian Federation', 'RUS', 'San Marino', 'SMR', 'Serbia', 'SRB', 'Slovakia', 'SVK', 'Slovenia', 'SVN', 'Spain', 'ESP', 'Sweden',
+              'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR',  'Ukraine', 'UKR']
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
