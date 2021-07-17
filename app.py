@@ -128,7 +128,7 @@ def update_graph_live(n):
     df = pd.read_sql(query, con=conn)
 
     # Convert UTC into PDT
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=7))
+    #df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=7))
 
     # Clean and transform data to enable time series
     result = df.groupby([pd.Grouper(key='created_at', freq='10s'), 'depression']).count().unstack(
@@ -137,8 +137,8 @@ def update_graph_live(n):
         columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at": "Time"})
     time_series = result["Time"][result['depression'] == 0].reset_index(drop=True)
 
-    min10 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=10)
-    min20 = datetime.datetime.now() - datetime.timedelta(hours=7, minutes=20)
+    min10 = datetime.datetime.now() - datetime.timedelta(minutes=10)
+    min20 = datetime.datetime.now() - datetime.timedelta(minutes=20)
 
     neg_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'negative'].sum()
