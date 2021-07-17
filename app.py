@@ -146,20 +146,20 @@ def update_graph_live(n):
         result['depression'] == 'positive'].sum()
 
     # Loading back-up summary data
-    query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
-    back_up = pd.read_sql(query, con=conn)
-    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])].sum()
-    daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
-    cur = conn.cursor()
+#    query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
+#    back_up = pd.read_sql(query, con=conn)
+#    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])].sum()
+#    daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
+#    cur = conn.cursor()
 
-    PDT_now = datetime.datetime.now() - datetime.timedelta(hours=7)
-    if PDT_now.strftime("%H%M")=='0000':
-        cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
-    else:
-        cur.execute("UPDATE Back_Up SET daily_tweets_num = {}, impressions = {};".format(daily_tweets_num, daily_impressions))
-    conn.commit()
-    cur.close()
-    conn.close()
+#    PDT_now = datetime.datetime.now() - datetime.timedelta(hours=7)
+#    if PDT_now.strftime("%H%M")=='0000':
+#        cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
+#    else:
+#        cur.execute("UPDATE Back_Up SET daily_tweets_num = {}, impressions = {};".format(daily_tweets_num, daily_impressions))
+#    conn.commit()
+#    cur.close()
+#    conn.close()
 
     # Percentage Number of Tweets changed in Last 10 mins
 
@@ -183,7 +183,7 @@ def update_graph_live(n):
                                 opacity=0.8,
                                 mode='lines',
                                 line=dict(width=0.5, color='rgb(255, 50, 50)'),
-                                stackgroup='two'
+                                stackgroup='one'
                             ),
                             go.Scatter(
                                 x=time_series,
@@ -193,7 +193,7 @@ def update_graph_live(n):
                                 opacity=0.8,
                                 mode='lines',
                                 line=dict(width=0.5, color='rgb(184, 247, 212)'),
-                                stackgroup='three'
+                                stackgroup='two'
                             )
                         ]
                     }
