@@ -192,7 +192,7 @@ def update_graph_live(n):
                                 name="Negatives",
                                 opacity=0.8,
                                 mode='lines',
-                                line=dict(width=0.5, color='rgb(255, 50, 50)'),
+                                line=dict(width=0.5, color='rgb(184, 247, 212)'),
                                 stackgroup='two'
                             ),
                             go.Scatter(
@@ -202,7 +202,7 @@ def update_graph_live(n):
                                 name="Positives",
                                 opacity=0.8,
                                 mode='lines',
-                                line=dict(width=0.5, color='rgb(184, 247, 212)'),
+                                line=dict(width=0.5, color='rgb(255, 50, 50)'),
                                 stackgroup='three'
                             )
                         ]
