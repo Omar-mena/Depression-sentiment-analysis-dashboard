@@ -405,7 +405,7 @@ def update_graph_bottom_live(n):
                     ],
                     'layout': {
                         'title': "Geographic seg for Europe",
-                        'geo': {'scope': 'europe'}
+                        'geo': {'scope': 'world'}
                     }
                 }
             )
