@@ -15,7 +15,7 @@ import psycopg2
 import datetime
 import re
 import nltk
-
+import plotly.express as px
 nltk.download('punkt')
 nltk.download('stopwords')
 from nltk.probability import FreqDist
@@ -390,9 +390,11 @@ def update_graph_bottom_live(n):
                 figure={
                     'data': [
                         go.Choropleth(
+                            geojson="C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson", \
+                            featureidkey="properties.LAD19CD",
                             locations=geo_dist['State'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
-                            locationmode="ISO-3",  # set of locations match entries in `locations`
+                            locationmode="geojson-id",  # set of locations match entries in `locations`
                             # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
