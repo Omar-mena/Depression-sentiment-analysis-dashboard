@@ -310,17 +310,6 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    #STATES = ['Albania', 'ALB', 'Andorra', 'AND', 'Armenia', 'ARM', 'Austria', 'AUT', 'Belarus', 'BLR', 'Belgium',
-              'BEL', 'Bosnia and Herzegovina', 'BIH', 'Bulgaria', 'BGR', 'Croatia',
-              'HRV', 'Cyprus', 'CYP', 'Czech Republic', 'CZE', 'Denmark', 'DNK', 'Estonia', 'EST', 'finland', 'FIN',
-              'France', 'FRA', 'United Kingdom', 'GBR', 'Georgia',
-              'GEO', 'Germany', 'DEU', 'Faroe Islands', 'FRO', 'Greece', 'GRC', 'Gibraltar', 'GIB', 'Hungary', 'HUN',
-              'Iceland', 'ISL', 'Ireland', 'IRL', 'Italy', 'ITA', 'Latvia', 'LVA', 'Liechtenstein',
-              'LIE', 'Lithuania', 'LTU', 'Luxembourg', 'LUX', 'North Macedonia', 'MKD', 'Malta', 'MLT',
-              'Republic of Moldova', 'MDA', 'Monaco', 'MCO', 'Montenegro', 'MNE', 'Netherlands', 'NLD', 'Norway',
-              'NOR', 'Poland', 'POL', 'Portugal', 'PRT', 'Romania', 'ROU', 'Russian Federation', 'RUS', 'San Marino',
-              'SMR', 'Serbia', 'SRB', 'Slovakia', 'SVK', 'Slovenia', 'SVN', 'Spain', 'ESP', 'Sweden',
-              'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR', 'Ukraine', 'UKR', 'UK', 'united kingdom']
     STATES = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russian Federation','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
     #'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine',
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
