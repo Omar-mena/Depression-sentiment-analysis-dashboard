@@ -8,21 +8,18 @@ import plotly.graph_objs as go
 import settings
 import itertools
 import math
-import base64
-from flask import Flask
 import os
 import psycopg2
 import datetime
 import re
 import nltk
-
 nltk.download('punkt')
 nltk.download('stopwords')
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from textblob import TextBlob
 from joblib import load
+from io import StringIO
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -349,8 +346,10 @@ def update_graph_bottom_live(n):
         if (w not in stop_words) and (len(w) >= 3):
             filtered_sent.append(w)
     fdist = FreqDist(filtered_sent)
+    clf = load('depression_model1.joblib')
+
     fd = pd.DataFrame(fdist.most_common(16), columns=["Word", "Frequency"]).drop([0]).reindex()
-    fd['depression'] = fd['Word'].apply(lambda x: TextBlob(x).sentiment.polarity)
+    fd['depression'] = fd['Word'].apply(lambda x: clf.predict(pd.DataFrame(StringIO(x), columns=["text"]).text))
     fd['Marker_Color'] = fd['depression'].apply(lambda x: 'rgba(255, 50, 50, 0.6)' if x < -0.1 else \
         ('rgba(184, 247, 212, 0.6)' if x > 0.1 else 'rgba(131, 90, 241, 0.6)'))
     fd['Line_Color'] = fd['depression'].apply(lambda x: 'rgba(255, 50, 50, 1)' if x < -0.1 else \
