@@ -310,12 +310,12 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    STATES = ['Albania', 'ALB', 'Andorra', 'AND', 'Armenia', 'ARM', 'Austria', 'AUT', 'Belarus', 'BLR', 'Belgium', 'BEL', 'Bosnia and Herzegovina', 'BIH', 'Bulgaria', 'BGR', 'Croatia',
-              'HRV', 'Cyprus', 'CYP', 'Czech Republic', 'CZE', 'Denmark', 'DNK', 'Estonia', 'EST', 'finland', 'FIN', 'France', 'FRA', 'United Kingdom of Great Britain and Northern Ireland', 'GBR', 'Georgia',
-              'GEO', 'Germany', 'DEU', 'Faroe Islands', 'FRO', 'Greece', 'GRC', 'Gibraltar', 'GIB', 'Hungary', 'HUN', 'Iceland', 'ISL', 'Ireland', 'IRL', 'Italy', 'ITA', 'Latvia', 'LVA', 'Liechtenstein',
-              'LIE', 'Lithuania', 'LTU', 'Luxembourg', 'LUX', 'North Macedonia', 'MKD', 'Malta', 'MLT', 'Republic of Moldova', 'MDA', 'Monaco', 'MCO', 'Montenegro', 'MNE', 'Netherlands', 'NLD', 'Norway',
-              'NOR', 'Poland', 'POL', 'Portugal', 'PRT', 'Romania', 'ROU', 'Russian Federation', 'RUS', 'San Marino', 'SMR', 'Serbia', 'SRB', 'Slovakia', 'SVK', 'Slovenia', 'SVN', 'Spain', 'ESP', 'Sweden',
-              'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR',  'Ukraine', 'UKR', 'UK', 'united kingdom']
+    STATES = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Bulgaria', 'Croatia',
+              'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'United Kingdom of Great Britain and Northern Ireland', 'Georgia',
+              'Germany', 'Faroe Islands', 'Greece', 'Gibraltar', 'Hungary', 'Iceland', 'Ireland', 'Italy', 'Latvia', 'Liechtenstein',
+              'Lithuania', 'Luxembourg', 'North Macedonia', 'Malta', 'Republic of Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway',
+              'Poland', 'Portugal', 'Romania', 'Russian Federation', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia', 'Spain', 'Sweden',
+              'Switzerland', 'Turkey', 'Ukraine', 'UK', 'united kingdom']
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
