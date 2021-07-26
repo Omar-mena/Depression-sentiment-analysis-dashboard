@@ -337,7 +337,7 @@ def update_graph_bottom_live(n):
         .sort_values(by=['Number'], ascending=False).reset_index()
     geo_dist["Log Num"] = geo_dist["Number"].apply(lambda x: math.log(x, 2))
 
-    #geo_dist['Full State Name'] = geo_dist['State'].apply(lambda x: INV_STATE_DICT[x])
+    geo_dist['Full State Name'] = geo_dist['State'].apply(lambda x: STATES[x])
     geo_dist['text'] = geo_dist['Full State Name'] + '<br>' + 'Num: ' + geo_dist['Number'].astype(str)
 
     tokenized_word = word_tokenize(content)
