@@ -310,7 +310,7 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    STATES = ['Albania', 'ALB', 'Andorra', 'AND', 'Armenia', 'ARM', 'Austria', 'AUT', 'Belarus', 'BLR', 'Belgium',
+    #STATES = ['Albania', 'ALB', 'Andorra', 'AND', 'Armenia', 'ARM', 'Austria', 'AUT', 'Belarus', 'BLR', 'Belgium',
               'BEL', 'Bosnia and Herzegovina', 'BIH', 'Bulgaria', 'BGR', 'Croatia',
               'HRV', 'Cyprus', 'CYP', 'Czech Republic', 'CZE', 'Denmark', 'DNK', 'Estonia', 'EST', 'finland', 'FIN',
               'France', 'FRA', 'United Kingdom', 'GBR', 'Georgia',
@@ -321,7 +321,7 @@ def update_graph_bottom_live(n):
               'NOR', 'Poland', 'POL', 'Portugal', 'PRT', 'Romania', 'ROU', 'Russian Federation', 'RUS', 'San Marino',
               'SMR', 'Serbia', 'SRB', 'Slovakia', 'SVK', 'Slovenia', 'SVN', 'Spain', 'ESP', 'Sweden',
               'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR', 'Ukraine', 'UKR', 'UK', 'united kingdom']
-    #STATES = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russian Federation','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
+    STATES = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russian Federation','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
     #'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine',
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
@@ -401,7 +401,7 @@ def update_graph_bottom_live(n):
                         go.Choropleth(
                             locations=geo_dist['State'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
-                            locationmode="ISO-3",  # set of locations match entries in `locations`
+                            locationmode="country names",  # set of locations match entries in `locations`
                             # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
