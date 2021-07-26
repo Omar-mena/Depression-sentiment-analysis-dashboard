@@ -390,7 +390,7 @@ def update_graph_bottom_live(n):
                         go.Choropleth(
                             locations=geo_dist['State'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
-                            locationmode="country names",  # set of locations match entries in `locations`
+                            locationmode="ISO-3" ,  # set of locations match entries in `locations`
                             # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
