@@ -312,8 +312,8 @@ def update_graph_bottom_live(n):
     # Filter constants for states in europe
     STATES = ['United Kingdom']
     #'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine',
-    #STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
-    #INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
+    STATE_DICT = dict(iter(STATES))
+    INV_STATE_DICT = dict((v) for v in STATE_DICT.items())
 
     # Clean and transform data to enable geo-distribution
 #geojson = "C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson",\
@@ -325,7 +325,7 @@ def update_graph_bottom_live(n):
         check = False
         for s in STATES:
             if s in x:
-                is_in_Europe.append(STATES[s] if s in STATES else s)
+                is_in_Europe.append(STATE_DICT[s] if s in STATE_DICT else s)
                 check = True
                 break
         if not check:
@@ -337,7 +337,7 @@ def update_graph_bottom_live(n):
         .sort_values(by=['Number'], ascending=False).reset_index()
     geo_dist["Log Num"] = geo_dist["Number"].apply(lambda x: math.log(x, 2))
 
-    geo_dist['Full State Name'] = geo_dist['State'].apply(lambda x: STATES[x])
+    geo_dist['Full State Name'] = geo_dist['State'].apply(lambda x: INV_STATE_DICT[x])
     geo_dist['text'] = geo_dist['Full State Name'] + '<br>' + 'Num: ' + geo_dist['Number'].astype(str)
 
     tokenized_word = word_tokenize(content)
