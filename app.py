@@ -315,7 +315,7 @@ def update_graph_bottom_live(n):
               'GEO', 'Germany', 'DEU', 'Faroe Islands', 'FRO', 'Greece', 'GRC', 'Gibraltar', 'GIB', 'Hungary', 'HUN', 'Iceland', 'ISL', 'Ireland', 'IRL', 'Italy', 'ITA', 'Latvia', 'LVA', 'Liechtenstein',
               'LIE', 'Lithuania', 'LTU', 'Luxembourg', 'LUX', 'North Macedonia', 'MKD', 'Malta', 'MLT', 'Republic of Moldova', 'MDA', 'Monaco', 'MCO', 'Montenegro', 'MNE', 'Netherlands', 'NLD', 'Norway',
               'NOR', 'Poland', 'POL', 'Portugal', 'PRT', 'Romania', 'ROU', 'Russian Federation', 'RUS', 'San Marino', 'SMR', 'Serbia', 'SRB', 'Slovakia', 'SVK', 'Slovenia', 'SVN', 'Spain', 'ESP', 'Sweden',
-              'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR',  'Ukraine', 'UKR']
+              'SWE', 'Switzerland', 'CHE', 'Turkey', 'TUR',  'Ukraine', 'UKR', 'UK', 'united kingdom']
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
@@ -394,7 +394,7 @@ def update_graph_bottom_live(n):
                         go.Choropleth(
                             locations=geo_dist['State'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
-                            locationmode="ISO-3",  # set of locations match entries in `locations`
+                            locationmode="country names",  # set of locations match entries in `locations`
                             # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
