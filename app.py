@@ -349,7 +349,8 @@ def update_graph_bottom_live(n):
     clf = load('depression_model1.joblib')
 
     fd = pd.DataFrame(fdist.most_common(16), columns=["Word", "Frequency"]).drop([0]).reindex()
-    fd['depression'] = fd['Word'].apply(lambda x: clf.predict(pd.DataFrame(StringIO(x), columns=["text"]).text))
+    #fd['depression'] = fd['Word'].apply(lambda x: clf.predict(pd.DataFrame(StringIO(x), columns=["text"]).text))
+    fd['depression'] = clf.predict(fd['Word'])
     fd['Marker_Color'] = fd['depression'].apply(lambda x: 'rgba(255, 50, 50, 0.6)' if x < -0.1 else \
         ('rgba(184, 247, 212, 0.6)' if x > 0.1 else 'rgba(131, 90, 241, 0.6)'))
     fd['Line_Color'] = fd['depression'].apply(lambda x: 'rgba(255, 50, 50, 1)' if x < -0.1 else \
