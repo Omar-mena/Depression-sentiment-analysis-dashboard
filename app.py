@@ -355,8 +355,8 @@ def update_graph_bottom_live(n):
         ('rgba(184, 247, 212, 0.6)' if x > 0.1 else 'rgba(131, 90, 241, 0.6)'))
     fd['Line_Color'] = fd['depression'].apply(lambda x: 'rgba(255, 50, 50, 1)' if x < -0.1 else \
         ('rgba(184, 247, 212, 1)' if x > 0.1 else 'rgba(131, 90, 241, 1)'))
-
-
+    print(fd['depression'])
+    print(fd)
 
     # Create the graph
     children = [
