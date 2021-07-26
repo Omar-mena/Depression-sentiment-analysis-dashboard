@@ -312,8 +312,8 @@ def update_graph_bottom_live(n):
     # Filter constants for states in europe
     STATES = ['United Kingdom']
     #'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine',
-    STATE_DICT = dict(iter(STATES))
-    INV_STATE_DICT = dict((v) for v in STATE_DICT.items())
+    STATE_DICT = dict(itertools.zip_longest([iter(STATES)], fillvalue="_"))
+    INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
     # Clean and transform data to enable geo-distribution
 #geojson = "C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson",\
