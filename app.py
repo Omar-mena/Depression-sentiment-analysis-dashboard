@@ -320,6 +320,8 @@ def update_graph_bottom_live(n):
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
     # Clean and transform data to enable geo-distribution
+#geojson = "C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson",\
+#featureidkey = "properties.LAD19CD",
     is_in_Europe = []
     geo = df[['user_location']]
     df = df.fillna(" ")
@@ -390,11 +392,9 @@ def update_graph_bottom_live(n):
                 figure={
                     'data': [
                         go.Choropleth(
-                            geojson="C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson", \
-                            featureidkey="properties.LAD19CD",
                             locations=geo_dist['State'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
-                            locationmode="geojson-id",  # set of locations match entries in `locations`
+                            locationmode="ISO-3",  # set of locations match entries in `locations`
                             # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
