@@ -310,7 +310,8 @@ def update_graph_bottom_live(n):
     content = content.lower()
 
     # Filter constants for states in europe
-    STATES = ['Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine','United Kingdom']
+    STATES = ['United Kingdom']
+    #'Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine',
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
