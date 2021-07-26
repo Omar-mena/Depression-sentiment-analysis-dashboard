@@ -407,7 +407,7 @@ def update_graph_bottom_live(n):
                     }
                 }
             )
-        ], style={'display': 'inline-block', 'width': '55%'})
+        ], style={'display': 'inline-block', 'width': '50%'})
     ]
 
     return children
