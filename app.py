@@ -128,7 +128,7 @@ def update_graph_live(n):
     df = pd.read_sql(query, con=conn)
 
     # Convert UTC into BST
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=1))
+    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
 
     # Clean and transform data to enable time series
     result = df.groupby([pd.Grouper(key='created_at', freq='10s'), 'depression']).count().unstack(
@@ -300,7 +300,7 @@ def update_graph_bottom_live(n):
     conn.close()
 
     # Convert UTC into PDT
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
+   # df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
 
     # Clean and transform data to enable word frequency
     content = ' '.join(df["text"])
