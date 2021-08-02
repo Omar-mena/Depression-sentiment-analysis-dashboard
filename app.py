@@ -300,7 +300,7 @@ def update_graph_bottom_live(n):
     conn.close()
 
     # Convert UTC into PDT
-    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x - datetime.timedelta(hours=5))
+    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
 
     # Clean and transform data to enable word frequency
     content = ' '.join(df["text"])
