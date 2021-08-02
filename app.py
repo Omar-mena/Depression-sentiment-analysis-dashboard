@@ -323,6 +323,7 @@ def update_graph_bottom_live(n):
     df = df.fillna(" ")
     for x in df['user_location']:
         check = False
+        print(x)
         for s in STATES:
             if s in x:
                 is_in_Europe.append(STATE_DICT[s] if s in STATE_DICT else s)
