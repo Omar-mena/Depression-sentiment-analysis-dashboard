@@ -137,8 +137,8 @@ def update_graph_live(n):
         columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at": "Time"})
     time_series = result["Time"][result['depression'] == 'positive'].reset_index(drop=True)
 
-    min10 = datetime.datetime.now() + datetime.timedelta(hours=1, minutes=10)
-    min20 = datetime.datetime.now() + datetime.timedelta(hours=1, minutes=20)
+    min10 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=10)
+    min20 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=20)
 
     neg_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'negative'].sum()
