@@ -145,21 +145,7 @@ def update_graph_live(n):
     pos_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'positive'].sum()
 
-    # Loading back-up summary data
-#    query = "SELECT daily_user_num, daily_tweets_num, impressions FROM Back_Up;"
-#    back_up = pd.read_sql(query, con=conn)
-#    daily_tweets_num = back_up['daily_tweets_num'].iloc[0] + result[-6:-3]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])].sum()
-#    daily_impressions = back_up['impressions'].iloc[0] + df[df['created_at'] > (datetime.datetime.now() - datetime.timedelta(hours=7, seconds=10))]['user_followers_count'].sum()
-#    cur = conn.cursor()
 
-#    PDT_now = datetime.datetime.now() - datetime.timedelta(hours=7)
-#    if PDT_now.strftime("%H%M")=='0000':
-#        cur.execute("UPDATE Back_Up SET daily_tweets_num = 0, impressions = 0;")
-#    else:
-#        cur.execute("UPDATE Back_Up SET daily_tweets_num = {}, impressions = {};".format(daily_tweets_num, daily_impressions))
-#    conn.commit()
-#    cur.close()
-#    conn.close()
 
     # Percentage Number of Tweets changed in Last 10 mins
 
@@ -299,8 +285,8 @@ def update_graph_bottom_live(n):
     df = pd.read_sql(query, con=conn)
     conn.close()
 
-    # Convert UTC into PDT
-   # df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
+    # Convert UTC into BST
+    df['created_at'] = pd.to_datetime(df['created_at']).apply(lambda x: x + datetime.timedelta(hours=1))
 
     # Clean and transform data to enable word frequency
     content = ' '.join(df["text"])
