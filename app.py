@@ -137,8 +137,8 @@ def update_graph_live(n):
         columns={"id_str": "Num of '{}' mentions".format(settings.TRACK_WORDS[0]), "created_at": "Time"})
     time_series = result["Time"][result['depression'] == 'positive'].reset_index(drop=True)
 
-    min10 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=10)
-    min20 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=20)
+    min10 = datetime.datetime.now() + datetime.timedelta(hours=1, minutes=10)
+    min20 = datetime.datetime.now() + datetime.timedelta(hours=1, minutes=20)
 
     neg_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'negative'].sum()
@@ -297,13 +297,12 @@ def update_graph_bottom_live(n):
 
     # Filter constants for states in europe
     STATES = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russia','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
-    #STATES =['Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina','Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Finland','France','Germany','Greece','Hungary','Iceland','Ireland','Italy','Latvia','Liechtenstein','Lithuania','Luxembourg','North Macedonia','Malta','Republic of Moldova','Monaco','Montenegro','Netherlands','Norway','Poland','Portugal','Romania','Russian Federation','Serbia','Slovakia','Slovenia','Spain','Sweden','Switzerland','Ukraine', 'United Kingdom']
+
     STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
     INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
 
     # Clean and transform data to enable geo-distribution
-#geojson = "C:\Users\eagle\Downloads\Local_Authority_Districts_(May_2021)_UK_BUC.geojson",\
-#featureidkey = "properties.LAD19CD",
+
     is_in_Europe = []
     geo = df[['user_location']]
     df = df.fillna(" ")
