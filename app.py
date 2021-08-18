@@ -149,9 +149,9 @@ def update_graph_live(n):
 
     # Percentage Number of Tweets changed in Last 10 mins
 
-    count_now = df[df['created_at'] > min10]['id_str'].count()
-    count_before = df[(min20 < df['created_at']) & (df['created_at'] < min10)]['id_str'].count()
-    percent = (count_now - count_before) / count_before * 100
+    # count_now = df[df['created_at'] > min10]['id_str'].count()
+    # count_before = df[(min20 < df['created_at']) & (df['created_at'] < min10)]['id_str'].count()
+    # percent = (count_now - count_before) / count_before * 100
     # Create the graph
     children = [
         html.Div([
@@ -231,25 +231,25 @@ def update_graph_live(n):
         html.Div(
             className='row',
             children=[
-                html.Div(
-                    children=[
-                        html.P('Tweets/10 Mins Changed By',
-                               style={
-                                   'fontSize': 17
-                               }
-                               ),
-                        html.P('{0:.2f}%'.format(percent) if percent <= 0 else '+{0:.2f}%'.format(percent),
-                               style={
-                                   'fontSize': 40
-                               }
-                               )
-                    ],
-                    style={
-                        'width': '20%',
-                        'display': 'inline-block'
-                    }
-
-                ),
+                # html.Div(
+                #     children=[
+                #         html.P('Tweets/10 Mins Changed By',
+                #                style={
+                #                    'fontSize': 17
+                #                }
+                #                ),
+                #         html.P('{0:.2f}%'.format(percent) if percent <= 0 else '+{0:.2f}%'.format(percent),
+                #                style={
+                #                    'fontSize': 40
+                #                }
+                #                )
+                #     ],
+                #     style={
+                #         'width': '20%',
+                #         'display': 'inline-block'
+                #     }
+                #
+                # ),
 
 
 
