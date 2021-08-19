@@ -1,4 +1,3 @@
-# Simple demo app only
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -8,21 +7,17 @@ import plotly.graph_objs as go
 import settings
 import itertools
 import math
-import base64
-from flask import Flask
 import os
 import psycopg2
 import datetime
 import re
 import nltk
-import plotly.express as px
 nltk.download('punkt')
 nltk.download('stopwords')
 from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from textblob import TextBlob
-from joblib import load
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
@@ -31,7 +26,7 @@ app.title = 'Real-Time Twitter Monitor'
 server = app.server
 
 app.layout = html.Div(children=[
-    html.H2('Real-time Twitter Sentiment Analysis for Depression ', style={
+    html.H2('Real-time Twitter Sentiment Analysis to detect Depression ', style={
         'textAlign': 'center'
     }),
     html.H4('(Omar project)', style={
@@ -98,8 +93,8 @@ app.layout = html.Div(children=[
                         'Author:'
                     ),
                     html.A(
-                        'Omar'
-  #                      href='later'
+                        'Omar Alqahtani'
+
                     )
                 ]
             )
@@ -118,12 +113,9 @@ app.layout = html.Div(children=[
 @app.callback(Output('live-update-graph', 'children'),
               [Input('interval-component-slow', 'n_intervals')])
 def update_graph_live(n):
-    # Loading data from Heroku PostgreSQL
+    # Loading data from the database
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-   # query = "SELECT id_str, text, created_at, polarity, user_location, user_followers_count FROM {}".format(
-   #     settings.TABLE_NAME)
-    #timenow = (datetime.datetime.utcnow() - datetime.timedelta(hours=0, minutes=20)).strftime('%Y-%m-%d %H:%M:%S')
     query = "SELECT id_str, text, created_at, depression, user_location, user_followers_count FROM {}".format(settings.TABLE_NAME)
     df = pd.read_sql(query, con=conn)
 
@@ -138,21 +130,12 @@ def update_graph_live(n):
     time_series = result["Time"][result['depression'] == 'positive'].reset_index(drop=True)
 
     min10 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=10)
-    min20 = datetime.datetime.now() - datetime.timedelta(hours=1, minutes=20)
 
     neg_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'negative'].sum()
     pos_num = result[result['Time'] > min10]["Num of '{}' mentions".format(settings.TRACK_WORDS[0])][
         result['depression'] == 'positive'].sum()
 
-
-
-    # Percentage Number of Tweets changed in Last 10 mins
-
-    # count_now = df[df['created_at'] > min10]['id_str'].count()
-    # count_before = df[(min20 < df['created_at']) & (df['created_at'] < min10)]['id_str'].count()
-    # percent = (count_now - count_before) / count_before * 100
-    # Create the graph
     children = [
         html.Div([
             html.Div([
@@ -231,27 +214,6 @@ def update_graph_live(n):
         html.Div(
             className='row',
             children=[
-                # html.Div(
-                #     children=[
-                #         html.P('Tweets/10 Mins Changed By',
-                #                style={
-                #                    'fontSize': 17
-                #                }
-                #                ),
-                #         html.P('{0:.2f}%'.format(percent) if percent <= 0 else '+{0:.2f}%'.format(percent),
-                #                style={
-                #                    'fontSize': 40
-                #                }
-                #                )
-                #     ],
-                #     style={
-                #         'width': '20%',
-                #         'display': 'inline-block'
-                #     }
-                #
-                # ),
-
-
 
                 html.Div(
                     children=[
@@ -295,35 +257,34 @@ def update_graph_bottom_live(n):
     content = re.sub('[^A-Za-z0-9]+', ' ', content)
     content = content.lower()
 
-    # Filter constants for states in europe
-    STATES = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russia','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
+    # Filter constants for countries in europe
+    Contries = ['ALB','Albania','AND','Andorra','ARM','Armenia','AUT','Austria','BLR','Belarus','BEL','Belgium','BIH','Bosnia and Herzegovina','BGR','Bulgaria','HRV','Croatia','CYP','Cyprus','CZE','Czech Republic','DNK','Denmark','EST','Estonia','FIN','Finland','FRA','France','GEO','Georgia','DEU','Germany','FRO','Faroe Islands','GRC','Greece','GIB','Gibraltar','HUN','Hungary','ISL','Iceland','IRL','Ireland','ITA','Italy','LVA','Latvia','LIE','Liechtenstein','LTU','Lithuania','LUX','Luxembourg','MKD','North Macedonia','MLT','Malta','MDA','Republic of Moldova','MCO','Monaco','MNE','Montenegro','NLD','Netherlands','NOR','Norway','POL','Poland','PRT','Portugal','ROU','Romania','RUS','Russia','SMR','San Marino','SRB','Serbia','SVK','Slovakia','SVN','Slovenia','ESP','Spain','SWE','Sweden','CHE','Switzerland','TUR','Turkey','UKR','Ukraine','UK','United Kingdom']
 
-    STATE_DICT = dict(itertools.zip_longest(*[iter(STATES)] * 2, fillvalue=""))
-    INV_STATE_DICT = dict((v, k) for k, v in STATE_DICT.items())
+    Contries_DICT = dict(itertools.zip_longest(*[iter(Contries)] * 2, fillvalue=""))
+    INV_Contries_DICT = dict((v, k) for k, v in Contries_DICT.items())
 
     # Clean and transform data to enable geo-distribution
 
     is_in_Europe = []
-    geo = df[['user_location']]
     df = df.fillna(" ")
     for x in df['user_location']:
         check = False
-        for s in STATES:
+        for s in Contries:
             if s in x:
-                is_in_Europe.append(STATE_DICT[s] if s in STATE_DICT else s)
+                is_in_Europe.append(Contries_DICT[s] if s in Contries_DICT else s)
                 check = True
                 break
         if not check:
 
             is_in_Europe.append(None)
 
-    geo_dist = pd.DataFrame(is_in_Europe, columns=['State']).dropna().reset_index()
-    geo_dist = geo_dist.groupby('State').count().rename(columns={"index": "Number"}) \
+    geo_dist = pd.DataFrame(is_in_Europe, columns=['Contries']).dropna().reset_index()
+    geo_dist = geo_dist.groupby('Contries').count().rename(columns={"index": "Number"}) \
         .sort_values(by=['Number'], ascending=False).reset_index()
     geo_dist["Log Num"] = geo_dist["Number"].apply(lambda x: math.log(x, 2))
 
-    geo_dist['Full State Name'] = geo_dist['State'].apply(lambda x: INV_STATE_DICT[x])
-    geo_dist['text'] = geo_dist['Full State Name'] + '<br>' + 'Num: ' + geo_dist['Number'].astype(str)
+    geo_dist['Full Contries Name'] = geo_dist['Contries'].apply(lambda x: INV_Contries_DICT[x])
+    geo_dist['text'] = geo_dist['Full Contries Name'] + '<br>' + 'Num: ' + geo_dist['Number'].astype(str)
 
     tokenized_word = word_tokenize(content)
     stop_words = set(stopwords.words("english"))
@@ -373,17 +334,14 @@ def update_graph_bottom_live(n):
                 figure={
                     'data': [
                         go.Choropleth(
-                            locations=geo_dist['State'],  # Spatial coordinates
+                            locations=geo_dist['Contries'],  # Spatial coordinates
                             z=geo_dist['Log Num'].astype(float),  # Data to be color-coded
                             locationmode="country names",  # set of locations match entries in `locations`
-                            # colorscale = "Blues",
                             text=geo_dist['text'],  # hover text
                             geo='geo',
                             colorbar_title="Num in Log2",
                             marker_line_color='white',
                             colorscale=["#fdf7ff", "#835af1"],
-                            # autocolorscale=False,
-                            # reversescale=True,
                         )
                     ],
                     'layout': {
@@ -401,3 +359,31 @@ def update_graph_bottom_live(n):
 if __name__ == '__main__':
     app.run_server(debug=True)
 
+
+
+
+
+
+'''
+MIT License
+
+Copyright (c) 2019 Chulong Li
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
